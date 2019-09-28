@@ -1,4 +1,6 @@
 #!/bin/bash
+# Diphia@2019
+# This script is used to collect the important Linux system logfiles
 
 time_stamp=$(date +%Y%m%d)
 dir_name="${time_stamp}""_log"

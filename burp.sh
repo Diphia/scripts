@@ -1,0 +1,7 @@
+#!/bin/bash
+# diphia@2019
+# This script is used to run the burp suite pro (cracked version) in a simply way
+
+DIR=/home/diphia/burpsuite_pro
+
+java -jar ${DIR}/BurpHelper.jar
