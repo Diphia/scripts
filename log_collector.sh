@@ -1,4 +1,5 @@
 #!/bin/bash
+# log_collector.sh
 # Diphia@2019
 # This script is used to collect the important Linux system logfiles
 

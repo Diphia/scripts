@@ -1,4 +1,5 @@
 #!/bin/bash
+# new_post.sh
 # Diphia@2019
 # This script is used to create a new post for Hugo from a template, it will automatically change the post title 
 

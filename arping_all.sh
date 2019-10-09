@@ -1,4 +1,5 @@
 #!/bin/bash
+# arping_all.sh
 # diphia@2019
 # This script is used to arping all the machines inside the same network
 
