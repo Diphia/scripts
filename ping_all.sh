@@ -17,5 +17,3 @@ do
 	#echo "working on ${ip_addr_postfix}"
 	ping ${ip_addr_temp} -c 1 | grep "bytes from" | cut -d " " -f 4 | cut -d ":" -f 1
 done
-
-
