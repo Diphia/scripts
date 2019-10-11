@@ -5,6 +5,13 @@
 
 POST_DIR='/home/diphia/Westfall/content/post'
 
+if [$# -ne 1]
+then
+	echo "Usage: newpost [new post name]"
+	echo "Example: newpost [Linux_Shell_Script]"
+	exit
+fi
+
 cp ${POST_DIR}/template.md ${POST_DIR}/$1.md
 sed '4d' -i ${POST_DIR}/$1.md
 sed '4 ititle: "'$1'"' -i ${POST_DIR}/$1.md
