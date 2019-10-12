@@ -17,4 +17,5 @@ then
 	git clone git@github.com:Diphia/dotfiles.git 
 fi
 #sed '6d' -i /home/${username}/dotfiles/dotfiles_setup.sh
+
 sh /home/${username}/dotfiles/dotfiles_setup.sh
