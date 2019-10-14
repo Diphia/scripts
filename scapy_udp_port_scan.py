@@ -21,7 +21,7 @@ for port in range(port_start,port_end+1):
     a=sr1(IP(dst=ip_address)/UDP(dport=port),timeout=5,verbose=0)
     time.sleep(1)
     if a==None:
-        print(str(port)+" -----> Up")
+        print(str(port)+" -----> Open")
     else:
-        print(str(port)+" -----> Down")
+        print(str(port)+" -----> Close")
 
