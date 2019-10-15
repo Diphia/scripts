@@ -3,7 +3,7 @@
 # diphia@2019
 # This script is used to receive a file from target machine via nc 
 
-ip=10.73.151.20
+ip=10.73.151.6
 port=4444
 
 if [ $# -ne 1 ]
