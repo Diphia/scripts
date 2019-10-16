@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 # banner_grab.py
 # diphia@2019
-# This script is used to grab the banner information of a speciffic port of server
+# This script is used to grab the banner information of a speciffic port range of server
 
 import socket
 import select
