@@ -8,7 +8,8 @@ import select
 import sys
 
 if (len(sys.argv)!=4):
-    print("Usage:")
+    print("Usage: banner_grab.py [IP_ADDRESS] [START_PORT] [END_PORT]")
+    print("Example: banner_grab.py 1.1.1.1 20 50")
     sys.exit()
 
 ip_address=sys.argv[1]
