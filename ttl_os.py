@@ -12,4 +12,12 @@ if len(sys.argv)!=2:
 
 ip_address=sys.argv[1]
 
+ans=sr1(IP(dst=str(ip_address))/ICMP(),timeout=1,verbose=0)
+
+if (ans==None):
+    print("No response returned from target")
+elif (int(ans[IP].ttl)<=64):
+    print(str(ip_address)+" returned TTL="+str(ans[IP].ttl)+", Host is Linux/UNIX")
+else:
+    print(str(ip_address)+" returned TTL="+str(ans[IP].ttl)+", Host is Windows")
 
