@@ -20,4 +20,3 @@ elif (int(ans[IP].ttl)<=64):
     print(str(ip_address)+" returned TTL="+str(ans[IP].ttl)+", Host is Linux/UNIX")
 else:
     print(str(ip_address)+" returned TTL="+str(ans[IP].ttl)+", Host is Windows")
-
