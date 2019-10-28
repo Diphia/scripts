@@ -5,6 +5,9 @@
 
 filename_prefix=$(echo $1 | cut -d "." -f 1)
 #echo ${filename_prefix}
-mkdir /mnt/${filename_prefix}
-sudo mount -o ro $1 /mnt/${filename_prefix}
+if [ ! -d "/mnt/${filename_prefix}" ]
+then
+	sudo mkdir /mnt/${filename_prefix}/
+fi
 
+sudo mount -o ro $1 /mnt/${filename_prefix}

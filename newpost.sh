@@ -5,7 +5,7 @@
 
 POST_DIR='/home/diphia/Westfall/content/post'
 
-if [$# -ne 1]
+if [ $# -ne 1 ]
 then
 	echo "Usage: newpost [new post name]"
 	echo "Example: newpost [Linux_Shell_Script]"
