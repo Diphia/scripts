@@ -7,6 +7,7 @@ import requests
 import json
 #import certifi
 #import urllib3
+import time
 
 nessus_ip='10.73.151.65'
 nessus_port='8834'
@@ -15,7 +16,6 @@ nessus_password='cmcc#123'
 
 access_key='a655bd9c0d16f00656efbfcd5ad0cd31fefc64b12d2d6778d341277f6988dc5c'
 secret_key='0724b4ef60d80bf1c3cee8eac4d3aa3155342846dfcec5009e05e0632346b59b'
-
 
 url='https://'+nessus_ip+':'+nessus_port
 
@@ -31,7 +31,6 @@ def login():
     return token
 '''
 
-
 def get_scan_list():
     result=''
     url_scans=url+'/scans'
@@ -42,24 +41,8 @@ def get_scan_list():
     response=requests.get(url_scans,headers=header,verify=False)
     if response.status_code == 200:
         result=json.loads(response.text)
-    print(response)
+    #print(response)
     return result
-
-'''
-def get_scan_list():
-    result=''
-    token=login()
-    global header_x
-    if token != '':
-        url_scans=url+'/scans'
-        header_x={'X-Cookie':'token={token};'.format(token=token),
-                'Content-type':'application/json',
-                'Accept':'text/plain'}
-        response=requests.get(url_scans,headers=header_x,verify=False)
-        if response.status_code == 200:
-            result=json.loads(response.text)
-    return result
-'''
 
 def get_scan_id(scanname):
     scan_id=0
@@ -74,20 +57,30 @@ def get_scan_id(scanname):
 def scan_launch(iplist):
     url_launch=url+'/scans/{scan_id}/launch'.format(scan_id=get_scan_id('test1'))
     #url_launch=url+'/scans/{scan_id}/launch'.format(scan_id=5)
-    print(url_launch)
+    print('url='+url_launch)
     data={
             'alt_targets':iplist
     }
     response=requests.post(url_launch,headers=header,data=data,verify=False)
+    print(response)
     if response.status_code == 200:
         return True
     else:
-        print(response)
         return False
 
+def get_result(scan_id):
+    url_result=url+'/scans/{scan_id}'.format(scan_id=scan_id)
+    response=requests.get(url_result,headers=header,verify=False)
+    if response.status_code == 200:
+        vulnerabilities=response['vulnerabilities']
+        print(vulnerabilities)
+        #print(json.load(response.text)['info'])
+        #status=json.load(response.text)['info']['status']
 
 #print(get_scan_list()['scans'])
 #print(get_scan_list())
 #print(get_scan_id('test1'))
-print(scan_launch(['10.73.151.59']))
+#print(scan_launch(['10.73.151.59']))
+get_scan_list()
+get_result(5)
 
