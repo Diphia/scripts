@@ -5,8 +5,6 @@
 
 import requests
 import json
-#import certifi
-#import urllib3
 import time
 
 nessus_ip='10.73.151.65'
@@ -19,25 +17,27 @@ secret_key='0724b4ef60d80bf1c3cee8eac4d3aa3155342846dfcec5009e05e0632346b59b'
 
 url='https://'+nessus_ip+':'+nessus_port
 
-'''
-def login():
-    token=''
-    url_session=url+'/session'
-    id_pass={'username':nessus_username,'password':nessus_password}
-    response=requests.post(url_session,data=id_pass,verify=False)
-    if response.status_code == 200:
-        token=json.loads(response.text)['token']
-    print('token:'+token)
-    return token
-'''
+global header
+header={
+    'X-ApiKeys':'accessKey={access_key};secretKey={secret_key}'.format(access_key=access_key,secret_key=secret_key),
+    }
+
+global header_simu
+header_simu={
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.87 Safari/537.36',
+    'X-API-Token':'3A705E74-D87C-4F1F-88EF-F5135FCD45E2',
+    }
 
 def get_scan_list():
     result=''
     url_scans=url+'/scans'
+    '''
     global header
     header={'X-ApiKeys':'accessKey={access_key};secretKey={secret_key}'.format(access_key=access_key,secret_key=secret_key),
             'Content-type':'application/json',
-            'Accept':'text/plain'} 
+            'Accept':'text/plain'
+            }
+            '''
     response=requests.get(url_scans,headers=header,verify=False)
     if response.status_code == 200:
         result=json.loads(response.text)
@@ -54,19 +54,68 @@ def get_scan_id(scanname):
                 break
     return scan_id
 
-def scan_launch(iplist):
-    url_launch=url+'/scans/{scan_id}/launch'.format(scan_id=get_scan_id('test1'))
-    #url_launch=url+'/scans/{scan_id}/launch'.format(scan_id=5)
-    print('url='+url_launch)
+def create_scan(template_uuid,scan_name,text_target):
     data={
-            'alt_targets':iplist
-    }
-    response=requests.post(url_launch,headers=header,data=data,verify=False)
-    print(response)
-    if response.status_code == 200:
+            'username':'{username}'.format(username=nessus_username),
+            'password':'{password}'.format(password=nessus_password),
+            }
+    session=requests.Session()
+    session_login=session.post(url+'/session',headers=header_simu,data=data,verify=False)
+    token=str(session_login.text).split(':',1)[1][:-1] # get token
+    header_simu['X-Cookie']='token={token}'.format(token=eval(token)) # add fetched token to X-cookie
+    header_simu['Sec-Fetch-Site']='same-origin'
+    header_simu['Sec-Fetch-Mode']='cors'
+    url_scans=url+'/scans'
+    data={
+            'uuid':'{template_uuid}'.format(template_uuid=template_uuid),
+            'credential':{
+                "add":{},
+                "edit":{},
+                "delete":[]
+                },
+            'settings':{
+                'name':'{scan_name}'.format(scan_name=scan_name),
+                'enabled':'False',
+                'text_target':'{text_target}'.format(text_target=text_target)
+                }
+            }
+    create_scan=session.post(url_scans,headers=header_simu,data=data,verify=False)
+    print(create_scan.text)
+    print(create_scan)
+    #if response.status_code == 200:
+        #return response.id
+    #else:
+        #print(response.status_code)
+
+
+# As Tenbale disabled some APIs after the upgrade of version 7.0, simulation login is required to launch a speciffic scan.
+def scan_launch(scan_id):
+    data={
+            'username':'{username}'.format(username=nessus_username),
+            'password':'{password}'.format(password=nessus_password),
+            }
+    session=requests.Session()
+    session_login=session.post(url+'/session',headers=header_simu,data=data,verify=False)
+    token=str(session_login.text).split(':',1)[1][:-1] # get token
+    header_simu['X-Cookie']='token={token}'.format(token=eval(token)) # add fetched token to X-cookie
+    header_simu['Sec-Fetch-Site']='same-origin'
+    header_simu['Sec-Fetch-Mode']='cors'
+    launch=session.post(url+'/scans/{scan_id}/launch'.format(scan_id=scan_id),headers=header_simu,verify=False)
+    print(launch.status_code)
+    if launch.status_code == 200:
         return True
     else:
         return False
+
+def request_status(scan_id):
+    url_status=url+'/scans/{scan_id}'.format(scan_id=scan_id)
+    response=requests.get(url_status,headers=header,verify=False)
+    if response.status_code == 200:
+        info=json.loads(response.text)['info']
+        #status=info['status']
+        print(info)
+    else:
+        print(response.status_code)
 
 def get_result(scan_id):
     url_result=url+'/scans/{scan_id}'.format(scan_id=scan_id)
@@ -77,10 +126,9 @@ def get_result(scan_id):
         #print(json.load(response.text)['info'])
         #status=json.load(response.text)['info']['status']
 
-#print(get_scan_list()['scans'])
-#print(get_scan_list())
-#print(get_scan_id('test1'))
-#print(scan_launch(['10.73.151.59']))
-get_scan_list()
-get_result(5)
 
+
+#scan_launch(5)
+#request_status(5)
+#get_result(5)
+create_scan('731a8e52-3ea6-a291-ec0a-d2ff0619c19d7bd788d6be818b65','test8','10.73.151.25')

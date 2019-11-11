@@ -20,7 +20,7 @@ ip_address_prefix=ip_address.split('.')[0]+"."+ip_address.split('.')[1]+"."+ip_a
 
 for ip_address_postfix in range(1,255):
     ip_address_temp=str(ip_address_prefix+"."+str(ip_address_postfix))
-    print('processing {ip_address_temp}'.format(ip_address_temp=ip_address_temp))
+    #print('processing {ip_address_temp}'.format(ip_address_temp=ip_address_temp))
     packet_to_send=IP(dst=ip_address_temp)/TCP(dport=dport,flags='A')
     response=sr1(packet_to_send,timeout=0.1,verbose=0)
     try:
