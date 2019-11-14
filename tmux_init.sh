@@ -13,5 +13,6 @@ tmux new-window -n "note"
 tmux new-window -n "test"
 tmux new-window -n "config"
 tmux new-window -n "service" 
+tmux new-window -n "remote" 
 tmux select-window -t 1
 tmux -2 attach-session -t main

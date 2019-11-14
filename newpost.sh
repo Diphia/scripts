@@ -12,7 +12,13 @@ then
 	exit
 fi
 
-cp ${POST_DIR}/template.md ${POST_DIR}/$1.md
-sed '4d' -i ${POST_DIR}/$1.md
-sed '4 ititle: "'$1'"' -i ${POST_DIR}/$1.md
-vim ${POST_DIR}/$1.md
+if [ ! -f "${POST_DIR}/$1.md" ]
+then
+    cp ${POST_DIR}/template.md ${POST_DIR}/$1.md
+    sed '4d' -i ${POST_DIR}/$1.md
+    sed '4 ititle: "'$1'"' -i ${POST_DIR}/$1.md
+    vim ${POST_DIR}/$1.md
+else
+    echo "File exist"
+    exit
+fi
