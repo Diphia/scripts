@@ -5,14 +5,20 @@
 
 cheatsheet_loc="/home/diphia/cheatsheet"
 
+cheatsheet_set=${cheatsheet_loc}/$1.cheatsheet
+
 if [ $# -ne 2 ]
 then
+    if [ $# -e 1 ] 
+    then
+        cat ${cheatsheet_set}
+        exit
+    fi
 	echo "Usage: cheat [cheatset set] [chapter]"
 	echo "Example: cheat [vim] [substitude]"
 	exit
 fi
 
-cheatsheet_set=${cheatsheet_loc}/$1.cheatsheet
 chapter=^§.*$2.*  # § sign at the start and include input string
 
 start_line=`grep -n "${chapter}" ${cheatsheet_set} | awk -F ':' '{print $1}'`
