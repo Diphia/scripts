@@ -7,9 +7,9 @@ cheatsheet_loc="/home/diphia/cheatsheet"
 
 cheatsheet_set=${cheatsheet_loc}/$1.cheatsheet
 
-if [ $# -ne 2 ]
+if [[ $# != 2 ]]
 then
-    if [ $# -e 1 ] 
+    if [[ $# == 1 ]]
     then
         cat ${cheatsheet_set}
         exit
@@ -27,6 +27,7 @@ for x in ${start_line}
 do
     start_line_case=$x
     chapterPassed=0
+    end_line=`cat ${cheatsheet_set} | wc -l`+1
     for i in `grep -n "§" ${cheatsheet_set}`
     do
         if [[ ${chapterPassed} == 1 ]]
