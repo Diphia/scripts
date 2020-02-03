@@ -40,5 +40,5 @@ do
             chapterPassed=1
         fi
     done
-    awk -v sl="${start_line_case}" -v dl="${end_line}" 'NR>=sl && NR<dl {print $0}' ${cheatsheet_set} # use -v to define var in awk command
+    awk -v sl="${start_line_case}" -v dl="$((end_line))" 'NR>=sl && NR<dl {print $0}' ${cheatsheet_set} # use -v to define var in awk command
 done
