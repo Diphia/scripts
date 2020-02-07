@@ -10,6 +10,12 @@ PORT="9092"
 done_list=`transmission-remote ${PORT} -N ${NETRC} -l | grep Done`
 done_id_list=`echo "${done_list}" | awk '$1!="ID"{print $1}'`
 
+if [[ -z "${done_id_list}" ]]
+then
+    echo "No items to operate"
+    exit
+fi
+
 for id in ${done_id_list}
 do
     echo "Processing : ${id}"
