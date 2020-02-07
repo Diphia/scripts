@@ -12,7 +12,7 @@ done_id_list=`echo "${done_list}" | awk '$1!="ID"{print $1}'`
 
 for id in ${done_id_list}
 do
-    echo "now processing ${id}:"
+    echo "Processing : ${id}"
     transmission-remote ${PORT} -N ${NETRC} -t ${id} --move ${TARGET_DIR}
     transmission-remote ${PORT} -N ${NETRC} -t ${id} --remove 
 done
