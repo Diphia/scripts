@@ -16,9 +16,9 @@ done
 directory_list=`ls -al ${PROCESS_TARGET} | awk '(substr($1,1,1)=="d")&&($9!=".")&&($9!=".."){print $9}'`
 for directory in ${directory_list}
 do
-    if [[ `du -m ${directory}|awk '{print $1}'` -lt ${THRESHOLD} ]]
+    if [[ `du -m ${PROCESS_TARGET}/${directory}|awk '{print $1}'` -lt ${THRESHOLD} ]]
     then
-        rm -ri ${directory}
+        rm -ri ${PROCESS_TARGET}/${directory}
         echo "${directory} removed"
     else
         echo "${directory} is larger than ${THRESHOLD}M, you need to check it."
