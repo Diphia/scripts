@@ -9,7 +9,6 @@ PORT="9092"
 
 done_list=`transmission-remote ${PORT} -N ${NETRC} -l | grep Done`
 done_id_list=`echo "${done_list}" | awk '$1!="ID"{print $1}'`
-echo ${done_id_list}
 
 for id in ${done_id_list}
 do
