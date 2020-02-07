@@ -9,11 +9,14 @@ THRESHOLD="100" # unit is M
 valid_list=`find ${PROCESS_TARGET} -size +${THRESHOLD}M`
 for valid_items in ${valid_list}
 do
-    echo "now processing:${valid_items}"
-    mv ${valid_items} ${PROCESS_TARGET}
+    if [[ `dirname ${valid_items}` != "${PROCESS_TARGET}" ]]
+    then
+        echo "Processing: ${valid_items}"
+        mv ${valid_items} ${PROCESS_TARGET}
+    fi
 done
 
-directory_list=`ls -al ${PROCESS_TARGET} | awk '(substr($1,1,1)=="d")&&($9!=".")&&($9!=".."){print $9}'`
+directory_list=`ls -al ${PROCESS_TARGET} | awk '(substr($1,1,1)=="d")&&($9!=".")&&($9!="..")&&($9!=".*"){print $9}'`
 for directory in ${directory_list}
 do
     if [[ `du -m ${PROCESS_TARGET}/${directory}|awk '{print $1}'` -lt ${THRESHOLD} ]]
