@@ -16,12 +16,12 @@ do
     fi
 done
 
-directory_list=`ls -al ${PROCESS_TARGET} | awk '(substr($1,1,1)=="d")&&($9!=".")&&($9!="..")&&($9!=".*"){print $9}'`
+directory_list=`ls -l ${PROCESS_TARGET} | awk '(substr($1,1,1)=="d")&&($9!=".")&&($9!=".."){print $9}'`
 for directory in ${directory_list}
 do
-    if [[ `du -m ${PROCESS_TARGET}/${directory}|awk '{print $1}'` -lt ${THRESHOLD} ]]
+    if [[ `du -sm ${PROCESS_TARGET}/${directory} | awk '{print $1}'` -lt ${THRESHOLD} ]]  # judge directory size
     then
-        rm -ri ${PROCESS_TARGET}/${directory}
+        rm -r ${PROCESS_TARGET}/${directory}
         echo "${directory} removed"
     else
         echo "${directory} is larger than ${THRESHOLD}M, you need to check it."
