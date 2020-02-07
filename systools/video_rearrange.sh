@@ -7,7 +7,7 @@ PROCESS_TARGET="/mnt/media/transmission_move_target"
 THRESHOLD="100" # unit is M
 
 valid_list=`find ${PROCESS_TARGET} -size +${THRESHOLD}M`
-for valid_items in ${valid_list}:
+for valid_items in ${valid_list}
 do
     echo "now processing:${valid_items}"
     mv ${valid_items} ${PROCESS_TARGET}
