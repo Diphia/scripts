@@ -3,16 +3,25 @@
 # diphia@2019
 # This script is used to start tmux with speciffic windows and panes
 
-cd ~
+cd /home/diphia/scripts
 tmux new-session -s main -d 
-#tmux split-window -v 'ipython'
-#tmux split-window -h
 tmux rename-window "code"
-#tmux split-window -v
+
+cd /home/diphia/Westfall
 tmux new-window -n "note" 
+
+cd /home/diphia/test
 tmux new-window -n "test"
+
+cd /home/diphia/dotfiles
 tmux new-window -n "config"
+
+
+cd /home/diphia/Westfall
 tmux new-window -n "service" 
+
+cd ~
 tmux new-window -n "remote" 
+
 tmux select-window -t 1
 tmux -2 attach-session -t main
