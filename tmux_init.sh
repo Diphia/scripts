@@ -22,5 +22,8 @@ tmux new-window -n "service"
 cd ~
 tmux new-window -n "remote" 
 
+cd ~
+tmux new-window -n "vigtd" 
+
 tmux select-window -t 1
 tmux -2 attach-session -t main
