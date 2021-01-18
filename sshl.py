@@ -2,8 +2,6 @@
 # sshl.py
 # diphia@2021
 # This script is used to show the saved ssh targets
-import os
-import re
 import platform
 
 user = 'diphia'
