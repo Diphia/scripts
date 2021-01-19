@@ -1,8 +1,3 @@
-#!/usr/bin/python3
-# set_resolution.py
-# diphia@2020
-# This script is used to set screen resolution with xrandr and cvt
-
 import os
 
 SCREEN = 'Virtual1'
@@ -11,7 +6,10 @@ RESOLUTIONS = ('3840 2160',
         '2200 1650',
         '1920 1080',
         '1280 920',
-        '1280 960')
+        '1280 960',
+        '1366 768',
+        '1024 768',
+        '800 600')
 
 if __name__=="__main__":
     print('Select a resolution below:')
@@ -24,5 +22,3 @@ if __name__=="__main__":
     os.system('xrandr --newmode '+cvt_output)
     os.system('xrandr --addmode '+SCREEN+' '+res_name)
     os.system('xrandr --output '+SCREEN+' --mode '+res_name)
-
-
