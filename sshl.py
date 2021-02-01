@@ -34,7 +34,11 @@ def read_server():
 
 def print_server(server_list):
     for server in server_list:
-        print(server['Host'].ljust(10)+': '+ server['User']+'@'+server['HostName']+':'+server['Port'])
+        if(server['Port']=='22'):
+            server['Port']=''
+        else:
+            server['Port']=colored(':'+server['Port'],'cyan')
+        print(server['Host'].ljust(10)+': '+ server['User']+'@'+server['HostName']+server['Port'])
 
 if __name__=="__main__":
     server_list = read_server()
