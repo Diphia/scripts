@@ -9,6 +9,7 @@ def extract(yaml_dict,parent_key):
             extract(value,parent_key + key + '.')
         else:
             print(parent_key + key)
+    return
 
 if __name__=="__main__":
     with open(sys.argv[1]) as f:

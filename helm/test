@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "common.configmap.name" . }}
+
+  namespace: {{ .Values.global.namespace }}
+
+  labels:
+
+data:
+  DATABASE_DAEMON_CONF: "redis-standalone:{{ .Values.global.service.sdl.name }}:{{ .Values.global.service.sdl.port }}"
+  BIP_PORT_MTU: "{{ .Values.global.bipPortMTU }}"
+  SYSCOM_RUNTIME_ENV: "{{ .Values.global.syscomRuntimeEnv }}"
+
+  SYSCOM_INTERFACE: "{{ .Values.internal.internal.containerPortName }}"
+
+  SYSCOM_INTERFACE: "{{ .Values.internal.calico.containerPortName }}"
+
+  GENAPI_REMOTE_SYSLOG_ADDR: "ip:{{ .Values.global.service.logservice.name }}:{{ .Values.global.service.logservice.port }}"
+
+  GENAPI_REMOTE_SYSLOG_ATTRS: {{ .Values.global.loggingConfiguration.genapiRemoteSyslogAttrs | quote }}
+
+
+  GENAPI_STDOUT_LOGGER_ATTRS: {{ .Values.global.loggingConfiguration.genapiStdoutLoggerAttrs | quote }}
+
+
+
