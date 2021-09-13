@@ -4,13 +4,7 @@
 # This script is used to show the saved ssh targets
 import platform
 from termcolor import colored
-
-
-user = 'diphia'
-
-# compatible with Linux and macOS
-home = '/Users/'+user+'/' if (platform.system()=='Darwin') else '/home/'+user+'/'
-ssh_config = home+'.ssh/config'
+import os
 
 def read_server():
     server_list = []
@@ -41,5 +35,9 @@ def print_server(server_list):
         print(server['Host'].ljust(10)+': '+ server['User']+'@'+server['HostName']+server['Port'])
 
 if __name__=="__main__":
+    user = os.popen('whoami').readlines()[0].strip()
+    # compatible with Linux and macOS
+    home = '/Users/'+user+'/' if (platform.system()=='Darwin') else '/home/'+user+'/'
+    ssh_config = home+'.ssh/config'
     server_list = read_server()
     print_server(server_list)
