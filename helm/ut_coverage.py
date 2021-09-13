@@ -22,7 +22,8 @@ def main_yaml_process(filepath):
     return used_variables
 
 if __name__=="__main__":
+
 #    templates_path = sys.argv[1] + "templates/"
-    #yaml_files = list(filter(lambda f:True if (re.match('.*.yaml$',f)) else False ,os.listdir(templates_path)))
+    yaml_files = list(filter(lambda f:True if (re.match('.*.yaml$',f)) else False ,os.listdir(templates_path)))
 #    for yaml_file in yaml_files:
         #print(main_yaml_process(templates_path + yaml_file))
