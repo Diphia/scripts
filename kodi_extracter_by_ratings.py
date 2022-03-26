@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import xml.etree.cElementTree as et
-import re
+import re, sys
 from functools import reduce
 
 def xml_extracter(xml_file, ratings):
@@ -28,10 +28,29 @@ def metadata_name_generator(video_list):
         result.append(base_path+filename.split(".")[0]+".nfo")
     return result
 
+def special_character_process(xml_file):
+    """ delete all the lines with character of &#, which will raise error while parsing"""
+    file = open(xml_file, 'r', encoding = "UTF-8")
+    result = []
+    match_pattern = re.compile(r'&#')
+    while True:
+        line = file.readline()
+        if not line:
+            break
+        elif match_pattern.search(line):
+            pass
+        else:
+            result.append(line)
+    file.close()
+    file = open(xml_file, "w", encoding = "UTF-8")
+    for line in result:
+        file.write(line)
+    file.close()
+
 if __name__=="__main__":
-    #target = "/Users/diphia/Desktop/kodi_videodb_2021-04-22/videodb.xml"
-    target = "/Users/diphia/Downloads/kodi_videodb_2021-08-20/videodb.xml"
-    target_rating = 6
+    target = sys.argv[1]
+    target_rating = sys.argv[2]
+    special_character_process(target)
     video_list = xml_extracter(target, target_rating)
     metadata_name_list = metadata_name_generator(video_list)
     for v in video_list:
