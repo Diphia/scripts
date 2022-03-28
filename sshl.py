@@ -17,8 +17,8 @@ def parse_lines(lines):
         key, value = segments[0].lower(), segments[1].lower()
         dict[key] = value
     if not 'port' in dict: dict['port'] = '22'
-    if not 'identityfile' in dict: dict['identityfile'] = ""
-    if not 'preferredauthentications' in dict: dict['preferredauthentications'] = ""
+    if not 'identityfile' in dict: dict['identityfile'] = ''
+    if not 'preferredauthentications' in dict: dict['preferredauthentications'] = ''
     return Host(dict.get('host'), dict.get('hostname'), dict.get('user'), dict.get('port'), dict.get('identityfile'), dict.get('preferredauthentications'))
 
 def slice_file(config_file):
